@@ -1,235 +1,108 @@
-import React from 'react'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+
+const products =[
+  {
+    id: 1,
+    name: "twill shit",
+    price: 9000,
+    description: "This t-shit has all color you can buy it!",
+    imgSrc: "data:image/jpeg;base64,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",
+    imgArt: "t-shirt"
+
+  },
+  {
+    id: 2,
+    name: "t-shit gucci",
+    price: 8000,
+    description: "This t-shit has all color you can buy it!",
+    imgSrc: "https://media.gucci.com/style/DarkGray_Center_0_0_490x490/1659713403/457095_X5L89_9234_001_100_0000_Light.jpg",
+    imgArt: "gucci"
+
+  },
+  {
+    id: 3,
+    name: "pant",
+    price: 17000,
+    description: "This pant has all color you can buy it!",
+    imgSrc: "https://cdn.britannica.com/74/190774-050-52CE5745/jeans-denim-pants-clothing.jpg",
+    imgArt: "pant"
+
+  },
+  {
+    id: 4,
+    name: "Girls tr",
+    price: 22000,
+    description: "This t-shit has all color you can buy it!",
+    imgSrc: "data:image/jpeg;base64,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",
+    imgArt: "sh"
+
+  },
+  {
+    id: 5,
+    name: "Black Men Shirt",
+    price: 15000,
+    description: "This shirt is for men has all color you can buy it!",
+    imgSrc: "data:image/jpeg;base64,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",
+    imgArt: "bsh"
+
+  },
+]
 
 export const Home = () => {
-  const notify = () => toast.success("Added to Cart");
+
+  const navigate = useNavigate()
+
+  const handleOnClick =(item_id) =>{
+      navigate(`/product-details/${item_id}`)
+  }
   return (
     <>
-    <div className="flex flex-row py-48">
+    <div className="flex flex-row pt-48  pb-24">
     <div class="basis-1/5"></div>
     <div class="basis-3/5  justify-center">
    
-      <h1 className='font-bold lg:font-extrabold text-xl lg:text-6xl'>Welcome to Best Clother Shop!</h1>
-      <div className='flex justify-center pt-8'>
-      <button type="button" className='text-sky-500  px-8 outline outline-2 py-2  outline-pink-500 rounded-full hover:text-white hover:bg-pink-400'   >Get Started </button>
-      </div>
+      <h1 className='font-bold lg:font-extrabold justify-self-center text-2xl lg:text-5xl'>Welcome to Albert's <span className='text-[#34d399]'>Clother Shop!</span> </h1>
+      <div className='flex justify-center gap-4 pt-12'>
+      <button type="button" className='px-8 outline outline-2 py-2  outline-[#10b981] hover:outline-[#0f766e] '   >Get Started </button>
+      <button type="button" className='px-8 outline outline-2 py-2  outline-[#10b981] hover:outline-[#0f766e]'   >Sign In</button>
 
+      </div>
       </div>
       <div class="basis-1/5"></div>    
     </div>
 
     <div className='flex justify-center pb-24'>
-        <h1 className='font-bold text-xl lg:text-4xl'>Our Product</h1>
+        <h1 className='font-bold text-xl lg:text-4xl'>Our Products</h1>
     </div>
 
-    <div className="grid grid-cols-1 gap-8   md:grid-cols-3 lg:grid-cols-4 px-12 justify-center">
-      <div className='card grid shadow shadow-2  '>
-        <div className="card-image grid justify-center bg-slate-100 hover:opacity-75">
-          <img  className="h-full w-full object-cover object-center lg:h-full lg:w-full" src="https://i.etsystatic.com/20732324/r/il/eb65d2/4686471376/il_fullxfull.4686471376_pbvz.jpg" alt="p1" />
-        </div>
-        <div className="cart-title grid grid-cols-2 py-4">
-          <div>
-          <h1 className=' text-gray-500 text-xl px-2 '>T-shit</h1>
-          <p className='text-gray-500 text-sm px-2 ' >
-            5000 Rwf
-          </p>
+    <div className="grid grid-cols-1 gap-8 pb-4  md:grid-cols-3 lg:grid-cols-5 px-12 justify-center">
+      {products.map((value,index)=>(
+          <div key={index} className='card grid shadow shadow-x-xl  '>
+          <div className="card-image grid justify-center bg-slate-100 hover:opacity-75">
+            <img  className="h-full w-full object-cover object-center lg:h-full lg:w-full" src={value.imgSrc} alt={value.imgArt} />
           </div>
-          <div className='me-4'>
-          <button onClick={notify} className='text-fuchsia-100  opacity-75  mt-4  w-full bg-sky-800 p-2 hover:text-white hover:bg-sky-900 rounded-md ' type="button">Add to cart</button>
-          <ToastContainer
-                position="top-right"
-                autoClose={1500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                />
+          <div className="cart-title grid grid-cols-1 py-4 ">
+            <div className='grid justify-center'>
+            <h1 className=' text-gray-500 text-xl px-2 py-2'>{value.name}</h1>
+            <p className='text-gray-500 text-sm px-2 ' >
+              {value.price} Rwf
+            </p>
+            </div>
+            <div className='me-4 pt-4 flex justify-center'>
+            <button onClick={()=>handleOnClick(value.id)} type="button" className='px-8 outline outline-2 py-2  outline-[#10b981] hover:outline-[#0f766e] '   >
+              Buy Now
+               </button>
+            </div>
           </div>
-        </div>
-        </div>
-      
-      <div className='card grid shadow shadow-2  '>
-        <div className="card-image grid justify-center bg-slate-100 hover:opacity-75">
-          <img  className="h-full w-full object-cover object-center lg:h-full lg:w-full" src="https://i.etsystatic.com/20732324/r/il/eb65d2/4686471376/il_fullxfull.4686471376_pbvz.jpg" alt="p1" />
-        </div>
-        <div className="cart-title grid grid-cols-2 py-4">
-          <div>
-          <h1 className=' text-gray-500 text-xl px-2 '>T-shit</h1>
-          <p className='text-gray-500 text-sm px-2 ' >
-            5000 Rwf
-          </p>
           </div>
-          <div className='me-4'>
-          <button onClick={notify} className='text-fuchsia-100  opacity-75  mt-4  w-full bg-sky-800 p-2 hover:text-white hover:bg-sky-900 rounded-md ' type="button">Add to cart</button>
-          <ToastContainer
-                position="top-right"
-                autoClose={1500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                />
-          </div>
-        </div>
-        </div>
-      
-      <div className='card grid shadow shadow-2  '>
-        <div className="card-image grid justify-center bg-slate-100 hover:opacity-75">
-          <img  className="h-full w-full object-cover object-center lg:h-full lg:w-full" src="https://i.etsystatic.com/20732324/r/il/eb65d2/4686471376/il_fullxfull.4686471376_pbvz.jpg" alt="p1" />
-        </div>
-        <div className="cart-title grid grid-cols-2 py-4">
-          <div>
-          <h1 className=' text-gray-500 text-xl px-2 '>T-shit</h1>
-          <p className='text-gray-500 text-sm px-2 ' >
-            5000 Rwf
-          </p>
-          </div>
-          <div className='me-4'>
-          <button onClick={notify} className='text-fuchsia-100  opacity-75  mt-4  w-full bg-sky-800 p-2 hover:text-white hover:bg-sky-900 rounded-md ' type="button">Add to cart</button>
-          <ToastContainer
-                position="top-right"
-                autoClose={1500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                />
-          </div>
-        </div>
-        </div>
-      
-      <div className='card grid shadow shadow-2  '>
-        <div className="card-image grid justify-center bg-slate-100 hover:opacity-75">
-          <img  className="h-full w-full object-cover object-center lg:h-full lg:w-full" src="https://i.etsystatic.com/20732324/r/il/eb65d2/4686471376/il_fullxfull.4686471376_pbvz.jpg" alt="p1" />
-        </div>
-        <div className="cart-title grid grid-cols-2 py-4">
-          <div>
-          <h1 className=' text-gray-500 text-xl px-2 '>T-shit</h1>
-          <p className='text-gray-500 text-sm px-2 ' >
-            5000 Rwf
-          </p>
-          </div>
-          <div className='me-4'>
-          <button onClick={notify} className='text-fuchsia-100  opacity-75  mt-4  w-full bg-sky-800 p-2 hover:text-white hover:bg-sky-900 rounded-md ' type="button">Add to cart</button>
-          <ToastContainer
-                position="top-right"
-                autoClose={1500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light" 
-                />
-          </div>
-        </div>
-        </div>
-      
-      <div className='card grid shadow shadow-2  '>
-        <div className="card-image grid justify-center bg-slate-100 hover:opacity-75">
-          <img  className="h-full w-full object-cover object-center lg:h-full lg:w-full" src="https://i.etsystatic.com/20732324/r/il/eb65d2/4686471376/il_fullxfull.4686471376_pbvz.jpg" alt="p1" />
-        </div>
-        <div className="cart-title grid grid-cols-2 py-4">
-          <div>
-          <h1 className=' text-gray-500 text-xl px-2 '>T-shit</h1>
-          <p className='text-gray-500 text-sm px-2 ' >
-            5000 Rwf
-          </p>
-          </div>
-          <div className='me-4'>
-          <button onClick={notify} className='text-fuchsia-100  opacity-75  mt-4  w-full bg-sky-800 p-2 hover:text-white hover:bg-sky-900 rounded-md ' type="button">Add to cart</button>
-          <ToastContainer
-                position="top-right"
-                autoClose={1500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                />
-          </div>
-        </div>
-        </div>
-      
-      <div className='card grid shadow shadow-2  '>
-        <div className="card-image grid justify-center bg-slate-100 hover:opacity-75">
-          <img  className="h-full w-full object-cover object-center lg:h-full lg:w-full" src="https://i.etsystatic.com/20732324/r/il/eb65d2/4686471376/il_fullxfull.4686471376_pbvz.jpg" alt="p1" />
-        </div>
-        <div className="cart-title grid grid-cols-2 py-4">
-          <div>
-          <h1 className=' text-gray-500 text-xl px-2 '>T-shit</h1>
-          <p className='text-gray-500 text-sm px-2 ' >
-            5000 Rwf
-          </p>
-          </div>
-          <div className='me-4'>
-          <button onClick={notify} className='text-fuchsia-100  opacity-75  mt-4  w-full bg-sky-800 p-2 hover:text-white hover:bg-sky-900 rounded-md ' type="button">Add to cart</button>
-          <ToastContainer
-                position="top-right"
-                autoClose={1500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                />
-          </div>
-        </div>
-        </div>
-      
-      <div className='card grid shadow shadow-2  '>
-        <div className="card-image grid justify-center bg-slate-100 hover:opacity-75">
-          <img  className="h-full w-full object-cover object-center lg:h-full lg:w-full" src="https://i.etsystatic.com/20732324/r/il/eb65d2/4686471376/il_fullxfull.4686471376_pbvz.jpg" alt="p1" />
-        </div>
-        <div className="cart-title grid grid-cols-2 py-4">
-          <div>
-          <h1 className=' text-gray-500 text-xl px-2 '>T-shit</h1>
-          <p className='text-gray-500 text-sm px-2 ' >
-            5000 Rwf
-          </p>
-          </div>
-          <div className='me-4'>
-          <button onClick={notify} className='text-fuchsia-100  opacity-75  mt-4  w-full bg-sky-800 p-2 hover:text-white hover:bg-sky-900 rounded-md ' type="button">Add to cart</button>
-          <ToastContainer
-                position="top-right"
-                autoClose={1500}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                />
-          </div>
-        </div>
-        </div>
-      
-      
         
-    </div>
+
+      ))}
+      
+     </div>
     </> 
   )
 }
