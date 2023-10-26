@@ -60,9 +60,9 @@ export const Home = () => {
   }
   return (
     <>
-    <div className="flex flex-row pt-48  pb-24">
+    <div className="flex flex-row justify-center pt-48  pb-24">
     <div class="basis-1/5"></div>
-    <div class="basis-3/5  justify-center">
+    <div class="basis-3/5">
    
       <h1 className='font-bold lg:font-extrabold justify-self-center text-2xl lg:text-5xl'>Welcome to Albert's <span className='text-[#34d399]'>Clother Shop!</span> </h1>
       <div className='flex justify-center gap-4 pt-12'>
@@ -75,7 +75,7 @@ export const Home = () => {
     </div>
 
     <div className='flex justify-center pb-24'>
-        <h1 className='font-bold text-xl lg:text-4xl'>Our Products</h1>
+        <h1 className='font-bold text-xl lg:text-4xl'>Trending Products</h1>
     </div>
 
     <div className="grid grid-cols-1 gap-8 pb-4  md:grid-cols-3 lg:grid-cols-5 px-12 justify-center">
@@ -98,8 +98,6 @@ export const Home = () => {
             </div>
           </div>
           </div>
-        
-
       ))}
       
      </div>

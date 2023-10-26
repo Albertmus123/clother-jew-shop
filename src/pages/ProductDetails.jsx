@@ -1,8 +1,19 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export const ProductDetails = () => {
     // const [cartItem, setCartItem] = useState(0)
   return (
+<>
+    <div className='flex flex-wrap gap-4 my-4 px-4 md:px-12 lg:px-12'>
+    <Link to="/">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="green" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+        </svg>
+        
+        </Link>
+        <span>Back to home</span>
+    </div>
     <div className='grid grid-cols-1 md:grid-cols-2 bg:grid-cols-2 mx-2 my-4 md:mx-32 lg:mx-32 border-2 mt-8'>
          <div >
               <img src="https://tailwindui.com/img/ecommerce-images/product-quick-preview-02-detail.jpg" 
@@ -151,5 +162,6 @@ export const ProductDetails = () => {
         </div>
 
     </div>
+    </>
   )
 }
