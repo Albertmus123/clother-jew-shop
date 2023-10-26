@@ -1,3 +1,4 @@
+import { Modal } from '../components/Modal';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -54,7 +55,7 @@ const products =[
 export const Home = () => {
 
   const navigate = useNavigate()
-
+  const [openModel,setOpenModel ] = useState(false)
   const handleOnClick =(item_id) =>{
       navigate(`/product-details/${item_id}`)
   }
@@ -63,12 +64,10 @@ export const Home = () => {
     <div className="flex flex-row justify-center pt-48  pb-24">
     <div class="basis-1/5"></div>
     <div class="basis-3/5">
-   
       <h1 className='font-bold lg:font-extrabold justify-self-center text-2xl lg:text-5xl'>Welcome to Albert's <span className='text-[#34d399]'>Clother Shop!</span> </h1>
       <div className='flex justify-center gap-4 pt-12'>
-      <button type="button" className='px-8 outline outline-2 py-2  outline-[#10b981] hover:outline-[#0f766e] '   >Get Started </button>
+      <button onClick={()=>setOpenModel(true)} type="button" className='px-8 outline outline-2 py-2  outline-[#10b981] hover:outline-[#0f766e] '   >Get Started </button>
       <button type="button" className='px-8 outline outline-2 py-2  outline-[#10b981] hover:outline-[#0f766e]'   >Sign In</button>
-
       </div>
       </div>
       <div class="basis-1/5"></div>    
@@ -101,6 +100,8 @@ export const Home = () => {
       ))}
       
      </div>
+     {openModel && <Modal closeModel={setOpenModel} />}
+
     </> 
   )
 }
