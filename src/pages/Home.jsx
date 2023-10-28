@@ -77,7 +77,7 @@ export const Home = () => {
         <h1 className='font-bold text-xl lg:text-4xl'>Trending Products</h1>
     </div>
 
-    <div className="grid grid-cols-1 gap-8 pb-4  md:grid-cols-3 lg:grid-cols-5 px-12 justify-center">
+    <div className="grid grid-cols-1 gap-8 pb-4  md:grid-cols-3 lg:grid-cols-4 px-12 justify-center">
       {products.map((value,index)=>(
           <div key={index} className='card grid shadow shadow-x-xl  '>
           <div className="card-image grid justify-center bg-slate-100 hover:opacity-75">
@@ -91,7 +91,7 @@ export const Home = () => {
             </p>
             </div>
             <div className='me-4 pt-4 flex justify-center'>
-            <button onClick={()=>handleOnClick(value.id)} type="button" className='px-8 outline outline-2 py-2  outline-[#10b981] hover:outline-[#0f766e] '   >
+            <button onClick={()=>handleOnClick(value.id)} type="button" className='px-8 outline outline-2 py-2 w-40 h-12 outline-offset-2  outline-[#10b981] hover:outline-[#0f766e] '   >
               Buy Now
                </button>
             </div>

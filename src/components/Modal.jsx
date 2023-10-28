@@ -4,8 +4,8 @@ export const Modal = ({closeModel}) => {
   return (
     <div className='fixed inset-0  bg-gray-500 bg-opacity-75 transition-opacity'>
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div className="flex mt-40  justify-center p-4 ">
-        <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+        <div className="flex mt-24  justify-center p-4 ">
+        <div className="relative pe-12 transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
                     <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#10b981] sm:mx-0 sm:h-10 sm:w-10">
@@ -26,9 +26,21 @@ export const Modal = ({closeModel}) => {
                           orders. This account can be deactivated but not deleted.
                         </p>
                       </div>
-                      <div className='py-4'>
+                      <div className='pt-4'>
                         <label htmlFor="username" >Username <span className='text-[#10b981]'>*</span></label>
-                        <input type="text" className='outline outline-2 outline-offset-4 outline-[#10b981] w-full my-4' />
+                        <input type="text" className='outline outline-2 rounded-md outline-offset-4 outline-[#10b981] w-full my-4' />
+                      </div>
+                      <div className='pt-2'>
+                        <label htmlFor="username" >Email <span className='text-[#10b981]'>*</span></label>
+                        <input type="text" className='outline rounded-md outline-2 outline-offset-4 outline-[#10b981] w-full my-4' />
+                      </div>
+                      <div className='pt-2'>
+                        <label htmlFor="username" >Password<span className='text-[#10b981]'>*</span></label>
+                        <input type="text" className='outline rounded-md outline-2 outline-offset-4 outline-[#10b981] w-full my-4' />
+                      </div>
+                      <div className='pt-2'>
+                        <label htmlFor="username" >Confirm Password<span className='text-[#10b981]'>*</span></label>
+                        <input type="text" className='outline rounded-md outline-2 outline-offset-4 outline-[#10b981] w-full my-4' />
                       </div>
                     </div>
                   </div>
